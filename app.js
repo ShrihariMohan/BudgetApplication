@@ -1,5 +1,4 @@
 var budgetController = (function (){
-    var myobj_de = JSON.parse(localStorage.getItem('Data'));
 
 
     
@@ -45,16 +44,9 @@ var budgetController = (function (){
         percentage : -1 
     }
 
-    if ( myobj_de.budget != 0) {
-        data = myobj_de ;
-    }
 
     console.log(data.allItems.inc[0]);
-    var localStore = function(data) {     
-        var myObj_string = JSON.stringify(data);
-        localStorage.setItem('Data',myObj_string) ;
-        }
-    
+   
 
     return {
         addItem : function(type , des , val) {
@@ -73,7 +65,6 @@ var budgetController = (function (){
             } 
             // push into data
             data.allItems[type].push(newItem) ;
-            localStore(data);
             return newItem ;   
         } ,
 
@@ -243,7 +234,6 @@ var budgetController = (function (){
 
 var controller = (function ( budgetCtrl , UICtrl) {
 
-    StoreFiller(budgetCtrl.data);
     var setupEventListeners = function() {
         var DOM = UICtrl.getDOMstring() ;
 
@@ -323,11 +313,5 @@ var controller = (function ( budgetCtrl , UICtrl) {
 
 }) (budgetController , UIController);
 
-var StoreFiller  = function( data ) {
-    for ( var i  = 0 ; i < data.allItems.inc.length ; i++) {
-        var newItem = data.allItems.inc[i] ;
-        UICtrl.addListItem(newItem , 'inc' ) ;
-    }
-}
 
 controller.init(); 
